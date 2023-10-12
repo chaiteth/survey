@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Survey Form</title>
+    <style>
+        /* Your CSS styles here */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        .container {
+            max-width: 500px;
+            background-color: #fff;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            text-align: left;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="email"],
+        select,
+        input[type="date"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .gender-label {
+            display: inline-block;
+            margin-right: 10px;
+        }
+        button[type="submit"],
+        button[type="reset"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button[type="reset"] {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Survey Form</h1>
+        <form id="surveyForm">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Country:</label>
+                <select id="country" name="country" required>
+                    <option value="" disabled selected>Select your country</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Gender:</label>
+                <label class="gender-label"><input type="checkbox" name="gender" value="Male"> Male</label>
+                <label class="gender-label"><input type="checkbox" name="gender" value="Female"> Female</label>
+                <label class="gender-label"><input type="checkbox" name="gender" value="Other"> Other</label>
+            </div>
+            <div class="form-group">
+                <label for="profession">Profession:</label>
+                <input type="text" id="profession" name="profession" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="mobile">Mobile Number:</label>
+                <input type="tel" id="mobile" name="mobile" required>
+            </div>
+            <button type="submit" onclick="submitForm()">Submit</button>
+            <button type="reset">Reset</button>
+        </form>
+    </div>
+    <script>
+        // Function to dynamically populate the country dropdown
+        function populateCountries() {
+            const countryDropdown = document.getElementById("country");
+            const countries = ["USA", "Canada", "UK", "Australia", "Germany", "France", "Spain", "Italy", "Brazil", "Japan", "China", "India", "South Africa", "Russia", "Mexico", "Argentina", "New Zealand", "Singapore", "Thailand", "South Korea"];
+            
+            countries.forEach(country => {
+                const option = document.createElement("option");
+                option.value = country;
+                option.textContent = country;
+                countryDropdown.appendChild(option);
+            });
+        }
+
+        // Call the function to populate the dropdown
+        populateCountries();
+
+        function submitForm() {
+            const form = document.getElementById("surveyForm");
+            if (form.checkValidity()) {
+                const formData = new FormData(form);
+                let popupText = "<h2>Survey Form Submitted</h2>";
+                for (const [key, value] of formData.entries()) {
+                    popupText += `<p><strong>${key}:</strong> ${value}</p>`;
+                }
+                const popup = window.open("", "Popup", "width=400,height=400");
+                popup.document.write(popupText);
+                form.reset();
+            } else {
+                alert("Please fill out all required fields.");
+            }
+        }
+    </script>
+</body>
+</html>
